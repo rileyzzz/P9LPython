@@ -259,3 +259,8 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+P9LPython1/parsedmaterials.mtl
+P9LPython1/out.dae
+P9LPython1/examplematerial/main.mtl
+P9LPython1/blank.mtl
+P9LPython1/blank.dae
