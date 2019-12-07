@@ -1,4 +1,5 @@
 import struct
+import os
 
 class mesh: 
     diffusemap = "none"
@@ -42,7 +43,7 @@ meshes = []
 
 
 #scene.meshes = []
-
+materialpath = "G:/Keytop/Textures/"
 fileName = "G:/p9lscript/NewMap.P9L"
 f = open(fileName, mode='r')
 fileContent = f.read()
@@ -295,10 +296,46 @@ print("Time of Export: {}".format(localTime))
 print("converting to .obj")
 
 outtext = ""
+materialtext = ""
 faces = []
 verts = []
+
+
+materials = []
+
+
+outtext += "\n"
+outtext += "mtllib parsedmaterials.mtl"
+
+
+outtext += "\n"
 outtext += "o Main"
+
+
+
+
 for objcount, obj in enumerate(objects):
+
+
+    #create material array
+    
+    objecttexture = os.path.basename(obj.mesh.diffusemap)
+
+    if(objecttexture != "none"):
+        #print(objecttexture)
+        if(objecttexture not in materials):
+            materials.append(objecttexture)
+
+
+        #objmaterialname = materials.index(objecttexture)
+
+
+
+
+
+for objcount, obj in enumerate(objects):
+    if(os.path.basename(obj.mesh.diffusemap) != "none"):
+        objmaterialname = materials.index(os.path.basename(obj.mesh.diffusemap))
     if(obj.mesh.faces):
         outtext += "\n\n"
         #outtext += "o {}".format(obj.name) #hide for now cuz its laggy as fuck
@@ -346,13 +383,17 @@ for objcount, obj in enumerate(objects):
         outtext += "{}/{}".format((objcount * 3) + 3,(objcount * 3) + 3)
         outtext += " "
 
+        outtext += "\n"
+
+        if(os.path.basename(obj.mesh.diffusemap) != "none"):
+            outtext += "usemtl " + str(objmaterialname)
 
 
 
 
 
 outtext += "\n\n"
-outtext += "usemtl None"
+#outtext += "usemtl None"
 outtext += "\n"
 outtext += "s off"
 curcount = 1
@@ -381,7 +422,37 @@ curcount = 1
 
 
 
+
+
+
+
+
+
+
+
+for matcount, mat in enumerate(materials):
+    materialtext += "\n"
+
+    materialtext += "newmtl " + str(matcount)
+
+
+    materialtext += "\n"
+    materialtext += "Kd 0.8 0.8 0.8"
+
+    materialtext += "\n"
+    materialtext += "map_Kd " + materialpath + mat
+
+    materialtext += "\n"
+
+
+
+
+print(materials)
 #print(outtext)
 outfile = open("outnew.obj", "w")
 outfile.write(outtext)
 outfile.close()
+
+outmfile = open("parsedmaterials.mtl", "w")
+outmfile.write(materialtext)
+outmfile.close()
