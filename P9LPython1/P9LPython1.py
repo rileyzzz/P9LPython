@@ -1,6 +1,5 @@
 import struct
-#import pyassimp
-from pyassimp import *
+
 class mesh: 
     diffusemap = "none"
     diffusecolor = "127.5 127.5 127.5"
@@ -37,6 +36,12 @@ meshgroups = [] #ehhh
 
 objects = []
 meshes = []
+
+#Assimp variables
+#scene = pyassimp.structs.Scene()
+
+
+#scene.meshes = []
 
 fileName = "G:/p9lscript/NewMap.P9L"
 f = open(fileName, mode='r')
@@ -102,7 +107,7 @@ for cnt, group in enumerate(groups):
                 for element, eleline in enumerate(faceblocks):
                     elementcurtri.append(eleline)
                     elecounter += 1
-                    if(elecounter == 3):
+                    if(elecounter > 2):
                         elecounter = 0
                         localfaceList.append(elementcurtri)
                         elementcurtri = []
@@ -118,6 +123,67 @@ for cnt, group in enumerate(groups):
                     Avalues = myA.split(" ")
                     Bvalues = myB.split(" ")
                     Cvalues = myC.split(" ")
+
+                    #Fix Scientific Notation!!!!!!!!!
+
+                    #if("e-" in Avalues[0]):
+                    #    print("scientific notation detected")
+                    #    tokens = Avalues[0].split("e-")
+                    #    Avalues[0] = '%f' % (float(tokens[0]) * (10 ** -float(tokens[1])))
+                    #    #print('%f' % (float(tokens[0]) * (10 ** -float(tokens[1]))))
+
+                    #if("e-" in Avalues[1]):
+                    #    print("scientific notation detected")
+                    #    tokens = Avalues[1].split("e-")
+                    #    Avalues[1] = '%f' % (float(tokens[0]) * (10 ** -float(tokens[1])))
+                    #    #print('%f' % (float(tokens[0]) * (10 ** -float(tokens[1]))))
+
+                    #if("e-" in Avalues[2]):
+                    #    print("scientific notation detected")
+                    #    tokens = Avalues[2].split("e-")
+                    #    Avalues[2] = '%f' % (float(tokens[0]) * (10 ** -float(tokens[1])))
+                    #    #print('%f' % (float(tokens[0]) * (10 ** -float(tokens[1]))))
+
+
+
+                    #if("e-" in Bvalues[0]):
+                    #    print("scientific notation detected")
+                    #    tokens = Bvalues[0].split("e-")
+                    #    Bvalues[0] = '%f' % (float(tokens[0]) * (10 ** -float(tokens[1])))
+                    #    #print('%f' % (float(tokens[0]) * (10 ** -float(tokens[1]))))
+
+                    #if("e-" in Bvalues[1]):
+                    #    print("scientific notation detected")
+                    #    tokens = Bvalues[1].split("e-")
+                    #    Bvalues[1] = '%f' % (float(tokens[0]) * (10 ** -float(tokens[1])))
+                    #    #print('%f' % (float(tokens[0]) * (10 ** -float(tokens[1]))))
+
+                    #if("e-" in Bvalues[2]):
+                    #    print("scientific notation detected")
+                    #    tokens = Bvalues[2].split("e-")
+                    #    Bvalues[2] = '%f' % (float(tokens[0]) * (10 ** -float(tokens[1])))
+                    #    #print('%f' % (float(tokens[0]) * (10 ** -float(tokens[1]))))
+
+
+
+                    #if("e-" in Cvalues[0]):
+                    #    print("scientific notation detected")
+                    #    tokens = Cvalues[0].split("e-")
+                    #    Cvalues[0] = '%f' % (float(tokens[0]) * (10 ** -float(tokens[1])))
+                    #    #print('%f' % (float(tokens[0]) * (10 ** -float(tokens[1]))))
+
+                    #if("e-" in Cvalues[1]):
+                    #    print("scientific notation detected")
+                    #    tokens = Cvalues[1].split("e-")
+                    #    Cvalues[1] = '%f' % (float(tokens[0]) * (10 ** -float(tokens[1])))
+                    #    #print('%f' % (float(tokens[0]) * (10 ** -float(tokens[1]))))
+
+                    #if("e-" in Cvalues[2]):
+                    #    print("scientific notation detected")
+                    #    tokens = Cvalues[2].split("e-")
+                    #    Cvalues[2] = '%f' % (float(tokens[0]) * (10 ** -float(tokens[1])))
+                    #    #print('%f' % (float(tokens[0]) * (10 ** -float(tokens[1]))))
+
 
                     A = vert()
                     A.x = Avalues[0]
@@ -168,9 +234,154 @@ print("Time of Export: {}".format(localTime))
 
 
 #print(objects[0].gameobjectname)
-print(objects[1].mesh.faces[1].b.z)
+#print(objects[1].mesh.faces[1].b.z)
 #print(len(objects[1].mesh.faces))
-   
+
+#print("converting to Assimp structure.")
+
+##Aobj = pyassimp.structs.Mesh()
+#Aobj = scene.meshes[0]
+
+#print(Aobj.vertices)
+##Aobj.faces = []
+##Aobj.vertices = []
+#for assimpobjnum, srcaobj in enumerate(objects):
+#    #print("object identified")
+
+#    #enumerate
+#    for cnt, curface in enumerate(srcaobj.mesh.faces):
+#        #print(curface)
+#        Aface = pyassimp.structs.Face()
+#        Avert = pyassimp.structs.Vector3D()
+#        Avert.x = float(curface.a.x)
+#        Avert.y = float(curface.a.y)
+#        Avert.z = float(curface.a.z)
+        
+#        Bvert = pyassimp.structs.Vector3D()
+#        Avert.x = float(curface.a.x)
+#        Avert.y = float(curface.a.y)
+#        Avert.z = float(curface.a.z)
+        
+#        Cvert = pyassimp.structs.Vector3D()
+#        Avert.x = float(curface.a.x)
+#        Avert.y = float(curface.a.y)
+#        Avert.z = float(curface.a.z)
+
+#        indicearray = []
+#        Aobj.vertices.append([Avert.x,Avert.y,Avert.z])
+#        Aface.indices = [len(Aobj.vertices) - 1]
+#        indicearray = [len(Aobj.vertices) - 1]
+
+#        Aobj.vertices.append([Bvert.x,Bvert.y,Bvert.z])
+#        Aface.indices.append(len(Aobj.vertices) - 1)
+#        indicearray.append(len(Aobj.vertices) - 1)
+
+#        Aobj.vertices.append([Cvert.x,Cvert.y,Cvert.z])
+#        Aface.indices.append(len(Aobj.vertices) - 1)
+#        indicearray.append(len(Aobj.vertices) - 1)
+
+#        Aobj.faces.append(indicearray)
+        
+        
+#print(Aobj.vertices)        
+#scene.meshes[0] = Aobj
+
+##scene.meshes.append(Aobj)
+#print(scene.meshes)
+##print(scene.meshes[0].faces[12].indices[2])
+#pyassimp.export(scene, 'out.dae', 'collada')
+
+
+print("converting to .obj")
+
+outtext = ""
+faces = []
+verts = []
+outtext += "o Main"
+for objcount, obj in enumerate(objects):
+    if(obj.mesh.faces):
+        outtext += "\n\n"
+        #outtext += "o {}".format(obj.name) #hide for now cuz its laggy as fuck
+        for facecount, face in enumerate(obj.mesh.faces):
+            roundprecision = 3
+            outtext += "\n"
+            outtext += "v {} {} {}".format(face.a.x,face.a.y,face.a.z)
+            myface = [len(verts)]
+            verts.append(len(verts))
+
+            outtext += "\n"
+            outtext += "v {} {} {}".format(face.b.x,face.b.y,face.b.z)
+            myface.append(len(verts))
+            verts.append(len(verts))
+
+            outtext += "\n"
+            outtext += "v {} {} {}".format(face.c.x,face.c.y,face.c.z)
+            myface.append(len(verts))
+            verts.append(len(verts))
+
+            #faces.append(myface)
+            faces.append(face)
+
+
+        for facecount2, face2 in enumerate(obj.mesh.faces):
+
+            outtext += "\n"
+            outtext += "vt {} {}".format(face.a.u,face.a.v)
+
+            outtext += "\n"
+            outtext += "vt {} {}".format(face.b.u,face.b.v)
+
+            outtext += "\n"
+            outtext += "vt {} {}".format(face.c.u,face.c.v)
+
+        outtext += "\n"
+
+        outtext += "f "
+        outtext += "{}/{}".format((objcount * 3) + 1,(objcount * 3) + 1)
+        outtext += " "
+
+        outtext += "{}/{}".format((objcount * 3) + 2,(objcount * 3) + 2)
+        outtext += " "
+
+        outtext += "{}/{}".format((objcount * 3) + 3,(objcount * 3) + 3)
+        outtext += " "
 
 
 
+
+
+
+outtext += "\n\n"
+outtext += "usemtl None"
+outtext += "\n"
+outtext += "s off"
+curcount = 1
+#for facecount, face in enumerate(faces):
+    #outtext += "\n"
+
+    #outtext += "f "
+    #outtext += "{}/{}".format(face[0],face[0])
+    #outtext += " "
+    #outtext += "{}/{}".format(face[1],face[1])
+    #outtext += " "
+    #outtext += "{}/{}".format(face[2],face[2])
+    #print(float(face.b.z))
+    
+    #outtext += "f "
+    #outtext += "{}/{}".format(curcount,curcount)
+    #outtext += " "
+    #curcount += 1
+    #outtext += "{}/{}".format(curcount,curcount)
+    #outtext += " "
+    #curcount += 1
+    #outtext += "{}/{}".format(curcount,curcount)
+    #outtext += " "
+    #curcount += 1
+
+
+
+
+#print(outtext)
+outfile = open("outnew.obj", "w")
+outfile.write(outtext)
+outfile.close()
