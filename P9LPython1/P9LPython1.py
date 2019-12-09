@@ -190,23 +190,23 @@ for cnt, group in enumerate(groups):
                     A.x = Avalues[0]
                     A.y = Avalues[1]
                     A.z = Avalues[2]
-                    A.u = Avalues[3]
-                    A.v = Avalues[4]
-
+                    A.u = float(Avalues[3])
+                    A.v = -float(Avalues[4])
+                    
                     B = vert()
                     B.x = Bvalues[0]
                     B.y = Bvalues[1]
                     B.z = Bvalues[2]
-                    B.u = Bvalues[3]
-                    B.v = Bvalues[4]
+                    B.u = float(Bvalues[3])
+                    B.v = -float(Bvalues[4])
 
                     C = vert()
                         
                     C.x = Cvalues[0]
                     C.y = Cvalues[1]
                     C.z = Cvalues[2]
-                    C.u = Cvalues[3]
-                    C.v = Cvalues[4]
+                    C.u = float(Cvalues[3])
+                    C.v = -float(Cvalues[4])
                     newTri = triangle()
                     newTri.a = A
                     newTri.b = B
@@ -363,13 +363,13 @@ for objcount, obj in enumerate(objects):
         for facecount2, face2 in enumerate(obj.mesh.faces):
 
             outtext += "\n"
-            outtext += "vt {} {}".format(face.a.u,face.a.v)
+            outtext += "vt {} {}".format(face2.a.u,face2.a.v)
 
             outtext += "\n"
-            outtext += "vt {} {}".format(face.b.u,face.b.v)
+            outtext += "vt {} {}".format(face2.b.u,face2.b.v)
 
             outtext += "\n"
-            outtext += "vt {} {}".format(face.c.u,face.c.v)
+            outtext += "vt {} {}".format(face2.c.u,face2.c.v)
 
         for facecount3, face3 in enumerate(obj.mesh.faces):
             outtext += "\n"
