@@ -191,14 +191,14 @@ for cnt, group in enumerate(groups):
                     A.y = Avalues[1]
                     A.z = Avalues[2]
                     A.u = float(Avalues[3])
-                    A.v = -float(Avalues[4])
+                    A.v = float(Avalues[4])
                     
                     B = vert()
                     B.x = Bvalues[0]
                     B.y = Bvalues[1]
                     B.z = Bvalues[2]
                     B.u = float(Bvalues[3])
-                    B.v = -float(Bvalues[4])
+                    B.v = float(Bvalues[4])
 
                     C = vert()
                         
@@ -206,7 +206,7 @@ for cnt, group in enumerate(groups):
                     C.y = Cvalues[1]
                     C.z = Cvalues[2]
                     C.u = float(Cvalues[3])
-                    C.v = -float(Cvalues[4])
+                    C.v = float(Cvalues[4])
                     newTri = triangle()
                     newTri.a = A
                     newTri.b = B
