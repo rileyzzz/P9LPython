@@ -331,7 +331,7 @@ for objcount, obj in enumerate(objects):
 
 
 
-
+finalcount = 0
 
 for objcount, obj in enumerate(objects):
     if(os.path.basename(obj.mesh.diffusemap) != "none"):
@@ -371,19 +371,29 @@ for objcount, obj in enumerate(objects):
             outtext += "\n"
             outtext += "vt {} {}".format(face.c.u,face.c.v)
 
-        outtext += "\n"
+        for facecount3, face3 in enumerate(obj.mesh.faces):
+            outtext += "\n"
 
-        outtext += "f "
-        outtext += "{}/{}".format((objcount * 3) + 1,(objcount * 3) + 1)
-        outtext += " "
+            #outtext += "f "
+            #outtext += "{}/{}".format((facecount2 * 3) + 1,(facecount2 * 3) + 1)
+            #outtext += " "
 
-        outtext += "{}/{}".format((objcount * 3) + 2,(objcount * 3) + 2)
-        outtext += " "
+            #outtext += "{}/{}".format((facecount2 * 3) + 2,(facecount2 * 3) + 2)
+            #outtext += " "
 
-        outtext += "{}/{}".format((objcount * 3) + 3,(objcount * 3) + 3)
-        outtext += " "
+            #outtext += "{}/{}".format((facecount2 * 3) + 3,(facecount2 * 3) + 3)
+            #outtext += " "
+            outtext += "f "
+            outtext += "{}/{}".format((finalcount * 3) + 1,(finalcount * 3) + 1)
+            outtext += " "
 
-        outtext += "\n"
+            outtext += "{}/{}".format((finalcount * 3) + 2,(finalcount * 3) + 2)
+            outtext += " "
+
+            outtext += "{}/{}".format((finalcount * 3) + 3,(finalcount * 3) + 3)
+            outtext += " "
+            outtext += "\n"
+            finalcount += 1
 
         if(os.path.basename(obj.mesh.diffusemap) != "none"):
             outtext += "usemtl " + str(objmaterialname)
