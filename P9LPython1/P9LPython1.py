@@ -125,67 +125,8 @@ for cnt, group in enumerate(groups):
                     Bvalues = myB.split(" ")
                     Cvalues = myC.split(" ")
 
-                    #Fix Scientific Notation!!!!!!!!!
-
-                    #if("e-" in Avalues[0]):
-                    #    print("scientific notation detected")
-                    #    tokens = Avalues[0].split("e-")
-                    #    Avalues[0] = '%f' % (float(tokens[0]) * (10 ** -float(tokens[1])))
-                    #    #print('%f' % (float(tokens[0]) * (10 ** -float(tokens[1]))))
-
-                    #if("e-" in Avalues[1]):
-                    #    print("scientific notation detected")
-                    #    tokens = Avalues[1].split("e-")
-                    #    Avalues[1] = '%f' % (float(tokens[0]) * (10 ** -float(tokens[1])))
-                    #    #print('%f' % (float(tokens[0]) * (10 ** -float(tokens[1]))))
-
-                    #if("e-" in Avalues[2]):
-                    #    print("scientific notation detected")
-                    #    tokens = Avalues[2].split("e-")
-                    #    Avalues[2] = '%f' % (float(tokens[0]) * (10 ** -float(tokens[1])))
-                    #    #print('%f' % (float(tokens[0]) * (10 ** -float(tokens[1]))))
 
 
-
-                    #if("e-" in Bvalues[0]):
-                    #    print("scientific notation detected")
-                    #    tokens = Bvalues[0].split("e-")
-                    #    Bvalues[0] = '%f' % (float(tokens[0]) * (10 ** -float(tokens[1])))
-                    #    #print('%f' % (float(tokens[0]) * (10 ** -float(tokens[1]))))
-
-                    #if("e-" in Bvalues[1]):
-                    #    print("scientific notation detected")
-                    #    tokens = Bvalues[1].split("e-")
-                    #    Bvalues[1] = '%f' % (float(tokens[0]) * (10 ** -float(tokens[1])))
-                    #    #print('%f' % (float(tokens[0]) * (10 ** -float(tokens[1]))))
-
-                    #if("e-" in Bvalues[2]):
-                    #    print("scientific notation detected")
-                    #    tokens = Bvalues[2].split("e-")
-                    #    Bvalues[2] = '%f' % (float(tokens[0]) * (10 ** -float(tokens[1])))
-                    #    #print('%f' % (float(tokens[0]) * (10 ** -float(tokens[1]))))
-
-
-
-                    #if("e-" in Cvalues[0]):
-                    #    print("scientific notation detected")
-                    #    tokens = Cvalues[0].split("e-")
-                    #    Cvalues[0] = '%f' % (float(tokens[0]) * (10 ** -float(tokens[1])))
-                    #    #print('%f' % (float(tokens[0]) * (10 ** -float(tokens[1]))))
-
-                    #if("e-" in Cvalues[1]):
-                    #    print("scientific notation detected")
-                    #    tokens = Cvalues[1].split("e-")
-                    #    Cvalues[1] = '%f' % (float(tokens[0]) * (10 ** -float(tokens[1])))
-                    #    #print('%f' % (float(tokens[0]) * (10 ** -float(tokens[1]))))
-
-                    #if("e-" in Cvalues[2]):
-                    #    print("scientific notation detected")
-                    #    tokens = Cvalues[2].split("e-")
-                    #    Cvalues[2] = '%f' % (float(tokens[0]) * (10 ** -float(tokens[1])))
-                    #    #print('%f' % (float(tokens[0]) * (10 ** -float(tokens[1]))))
-
-                    #UVs should be working correctly
                     A = vert()
                     A.x = Avalues[0]
                     A.y = Avalues[1]
@@ -314,10 +255,11 @@ outtext += "o Main"
 
 
 
+
+
+finalcount = 0
+
 for objcount, obj in enumerate(objects):
-
-
-    #create material array
     
     objecttexture = os.path.basename(obj.mesh.diffusemap)
 
@@ -325,17 +267,10 @@ for objcount, obj in enumerate(objects):
         #print(objecttexture)
         if(objecttexture not in materials):
             materials.append(objecttexture)
+        
+        objmaterialname = materials.index(objecttexture)
+        outtext += "usemtl " + str(objmaterialname)
 
-
-        #objmaterialname = materials.index(objecttexture)
-
-
-
-finalcount = 0
-
-for objcount, obj in enumerate(objects):
-    if(os.path.basename(obj.mesh.diffusemap) != "none"):
-        objmaterialname = materials.index(os.path.basename(obj.mesh.diffusemap))
     if(obj.mesh.faces):
         outtext += "\n\n"
         #outtext += "o {}".format(obj.name) #hide for now cuz its laggy as fuck
@@ -374,15 +309,6 @@ for objcount, obj in enumerate(objects):
         for facecount3, face3 in enumerate(obj.mesh.faces):
             outtext += "\n"
 
-            #outtext += "f "
-            #outtext += "{}/{}".format((facecount2 * 3) + 1,(facecount2 * 3) + 1)
-            #outtext += " "
-
-            #outtext += "{}/{}".format((facecount2 * 3) + 2,(facecount2 * 3) + 2)
-            #outtext += " "
-
-            #outtext += "{}/{}".format((facecount2 * 3) + 3,(facecount2 * 3) + 3)
-            #outtext += " "
             outtext += "f "
             outtext += "{}/{}".format((finalcount * 3) + 1,(finalcount * 3) + 1)
             outtext += " "
@@ -395,8 +321,8 @@ for objcount, obj in enumerate(objects):
             outtext += "\n"
             finalcount += 1
 
-        if(os.path.basename(obj.mesh.diffusemap) != "none"):
-            outtext += "usemtl " + str(objmaterialname)
+        #if(os.path.basename(obj.mesh.diffusemap) != "none"):
+            #outtext += "usemtl " + str(objmaterialname)
 
 
 
