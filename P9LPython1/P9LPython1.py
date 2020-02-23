@@ -399,6 +399,7 @@ for matcount, mat in enumerate(materials):
 #print(materials)
 #print(outtext)
 print("Found Object Types: " + str(debugtypelist))
+#print("Found Object Zones: " + str(workingzonelist))
 outfile = open("outnew.obj", "w")
 outfile.write(outtext)
 outfile.close()
