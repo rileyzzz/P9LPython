@@ -41,6 +41,7 @@ meshes = []
 #Assimp variables
 #scene = pyassimp.structs.Scene()
 
+debugtypelist = []
 
 #scene.meshes = []
 materialpath = "G:/Keytop/Textures/"
@@ -76,6 +77,8 @@ for cnt, group in enumerate(groups):
                 
             if(tag.startswith("Type")):
                 newobj.type = tag[5:]
+                if(newobj.type not in debugtypelist):
+                    debugtypelist.append(newobj.type)
 
             if(tag.startswith("GameObjectName")):
                 newobj.gameobjectname = tag[15:]
@@ -259,6 +262,8 @@ outtext += "o Main"
 
 finalcount = 0
 
+workingzonelist = []
+
 for objcount, obj in enumerate(objects):
     
     objecttexture = os.path.basename(obj.mesh.diffusemap)
@@ -271,9 +276,17 @@ for objcount, obj in enumerate(objects):
         objmaterialname = materials.index(objecttexture)
         outtext += "usemtl " + str(objmaterialname)
 
+
+
+    #print(obj.zonename)
     if(obj.mesh.faces):
         outtext += "\n\n"
+            #separate objects by zone
+        if(obj.zonename not in workingzonelist):
+            workingzonelist.append(obj.zonename)
+            outtext += "o {}".format(obj.zonename)
         #outtext += "o {}".format(obj.name) #hide for now cuz its laggy as fuck
+
         for facecount, face in enumerate(obj.mesh.faces):
             roundprecision = 3
             outtext += "\n"
@@ -383,8 +396,9 @@ for matcount, mat in enumerate(materials):
 
 
 
-print(materials)
+#print(materials)
 #print(outtext)
+print("Found Object Types: " + str(debugtypelist))
 outfile = open("outnew.obj", "w")
 outfile.write(outtext)
 outfile.close()
